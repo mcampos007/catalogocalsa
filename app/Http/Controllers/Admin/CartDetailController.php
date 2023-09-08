@@ -30,7 +30,7 @@ class CartDetailController extends Controller
         if ($item)
         {
             $item->quantity = $request->input('quantity');
-            $item->stocklocal = $request->input('stocklocal');
+            $item->price = $request->input('price');
             $item->save();
             $notification='El item fué actualizado';
 

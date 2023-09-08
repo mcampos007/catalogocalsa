@@ -129,6 +129,7 @@ class PrecioController extends Controller
 
         $cartdetail = CartDetail::findOrfail($id);
        // dd($articulo);
+       // dd($cartdetail);
         return view('usuarios.edit',compact('cartdetail'));
     }
 
@@ -137,26 +138,34 @@ class PrecioController extends Controller
         // 
         //dd($request);
         $id = $request->input('cartdetail_id');
+        $discount= $request->input('descuento');
         //dd($id);
         $cartDetail = CartDetail::findOrfail($id);
-        //dd($cartDetail);
+
         if ($cartDetail)
         {
-            $cartDetail->quantity = $request->input('quantity');
-            $cartDetail->stocklocal = $request->input('stockactual');
-            $cartDetail->save();
+            //Validar que el descuento no supere el permitido
+            if ($discount<=$cartDetail->product->topedesc){
+                $cartDetail->quantity = $request->input('quantity');
+                $cartDetail->discount = $discount;
+              //  $cartDetail->stocklocal = $request->input('stockactual');
+                $cartDetail->save();
+                $success = true;
+                $notification = 'El Item se ha actualizado correctamente..';
+            }else{
+                $success = false;
+                $notification = 'El descuento ingresado no está permitido';
+            }
             
-            $notification = 'El Item se ha actualizado correctamente..';
             
-
-            return redirect('/home')->with(compact('notification'));
+            return redirect('/home')->with(compact('notification','success'));
 
         }
         
     }
 
     public function destroy(Request $request)
-    {
+    {   
         //dd($request->toArray());
         $cart = Cart::findOrfail($request->input('id'));
         //dd($cart);

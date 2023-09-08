@@ -9,7 +9,7 @@
 </div> -->
 
 
-<div class="header header-filter" style="background-image: url(' {{ asset('img/demofondo1.jpg') }}');">
+<div class="header header-filter" style="background-image: url(' {{ asset("img/demofondo1.jpg") }}');">
 
 </div>
 <div class="main main-raised">
@@ -22,21 +22,29 @@
             <input type="hidden" name="product_id" value="{{$cartdetail->product->id }}">
             <input type="hidden" name="cartdetail_id" value="{{$cartdetail->id }}">
              <div class="row">
-                  <div class="col-md-6">
+                  <div class="col-md-4">
                     <div class="form-group">
-                      <input type="text" class="form-control form-control-alternative"  placeholder="Cantidad Pedida"  name="quantity" value = " {{ $cartdetail->quantity }}"/>
+                        <label for="quantity">Cantidad:</label>
+                      <input type="text" class="form-control "  name="quantity" value = " {{ $cartdetail->quantity }}"/>
                     </div>
                   </div>
-                  <div class="col-md-6">
+                  <div class="col-md-4">
                     <div class="form-group">
-                      <input type="text" placeholder="Stock Actual" class="form-control form-control-alternative" name="stockactual" value = "{{ $cartdetail->stocklocal }}"/>
+                        <label for="price">Precio:</label>
+                      <input type="text" step="0.01" class="form-control"  name="price" value = " {{ $cartdetail->price }}" disabled />
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="descuento">% Descuento:</label>
+                      <input type="text" step="0.01"  class="form-control form-control-alternative" name="descuento" value = "{{ $cartdetail->discount }}"/>
                     </div>
                   </div>
             </div>
             <div class="row">
                   <div class="col-md-6">
                     <div class="form-group">
-                        <a href="{{ url('/usuario/precios')}}" type="button" class="btn btn-secondary">Cancelar</a>
+                        <a href="{{ url('/home')}}" type="button" class="btn btn-secondary">Cancelar</a>
                     </div>
                   </div>
                   <div class="col-md-6">

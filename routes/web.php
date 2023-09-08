@@ -13,9 +13,6 @@ l<?php
 
 Route::get('/', 'TestController@welcome');
 
-
-
-
 /*Route::get('/precios','PrecioController@index');
 Route::post('/searchprecios','PrecioController@show');
 Route::get('/precios/json', 'PrecioController@data');
@@ -45,8 +42,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+//  Parte Admin
 Route::middleware(['auth','admin'])->prefix('admin')->namespace('Admin')->group(function(){
-
 // Módulo de Cajas
 	Route::get('/cajas','CajaController@index');					// Caja Nueva
 	Route::get('/cajas/create','CajaController@create');			// Form de alta de Cajas
@@ -159,7 +156,6 @@ Route::middleware(['auth','admin'])->prefix('admin')->namespace('Admin')->group(
 	Route::delete('/categories/{id}/images','CategoryImageController@destroy');	
 	Route::get('/categories/{id}/images/select/{image}','CategoryImageController@select');
 
-
 //Clientes
 	Route::get('/clients','ClientController@index');				// Listado de clienteas
 	Route::get('/clients/create','ClientController@create');		// Form de Alta de clientes
@@ -172,12 +168,12 @@ Route::middleware(['auth','admin'])->prefix('admin')->namespace('Admin')->group(
 
 //Remitos
 	Route::get('/remito/{id}','CartController@vercart');						//Ver Contenido del Remito
+	Route::get('/remito/{id}/additem','CartController@additem');				//Listar Articulos 
 	Route::get('/remito/{id}/edit', 'CartController@edit');						//Form de Edicion del Remito
-	Route::get('/remito/{id}/facturar', 'CartController@facturarremito');		//Form de Facturacion del 
+	Route::get('/remito/{id}/facturar', 'CartController@facturarremito');		//Form de Facturacion del Remito
 	Route::get('/remito/edititem/{id}','CartDetailController@editaritem');		//Editar Item del 	Remito
 	Route::post('/remito/item', 'CartDetailController@update');					//Actualizar Item
-	Route::delete('/remito', 'CartController@destroy');					//eliminar el Pedido
-
+	Route::delete('/remito', 'CartController@destroy');							//eliminar el Pedido
 	Route::post('/remito/facturar', 'CartController@update');					//Confirmar Facturar Remito
 
 	Route::get('/remito/{id}/excel', 'CartController@excel');					//Enviar el Rmito a Excel
@@ -192,8 +188,12 @@ Route::middleware(['auth','admin'])->prefix('admin')->namespace('Admin')->group(
 //Parte Admin
 Route::get('/orders/{id}','CartController@vercart');						//Ver Contenido del Remito
 
+Route::middleware(['auth', 'usuario'])->prefix('admin')->namespace('Admin')->group(function () {
+	Route::get('/orders/{id}/additem', 'CartController@additem');				//Agregar item al pedido de un vendedor
+});
+
 Route::middleware(['auth', 'usuario'])->prefix('usuario')->namespace('Admin')->group(function () {
-    //Precios protegido
+//Precios protegido
 	Route::get('/precios','PrecioController@index');
 	Route::get('/remito/{id}','PrecioController@verremito');				//Ver Contenido del Remito
 	Route::get('/preciosf','PrecioController@indexf');						
@@ -202,7 +202,6 @@ Route::middleware(['auth', 'usuario'])->prefix('usuario')->namespace('Admin')->g
 	Route::delete('/cart','PrecioController@destroy');		//Eliminar un Pedido 
 	Route::post('/cart/edit','PrecioController@update');	//Actualizar datos del Item
 	Route::get('/editaitemdelpedido/{id}', 'PrecioController@editaitem');	// Editar Item del Pedido
-
 	// Módulo de Cajas
 	Route::get('/cajas','CajaController@index');					// Caja Nueva
 	Route::get('/cajas/create','CajaController@create');			// Form de alta de Cajas

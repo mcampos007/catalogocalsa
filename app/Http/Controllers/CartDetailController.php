@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\CartDetail;
+use App\Cart;
 
 
 class CartDetailController extends Controller
@@ -40,16 +41,38 @@ class CartDetailController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $rules= [
+            'quantity' => 'required|min:0.1',
+            'descuento' => 'numeric|max:'.$request->topedesc,
+        ];
+          $messages=[
+            'quantity.required' => 'Es necesario ingresar la cantidad solicitad',
+            'quantity.numeric' => 'Se debe ingresar un número',
+            'quantity.min' => 'La cantidad debe ser mayo que cero',
+            'descuento.numeric' =>'El dato ingresado deber ser numérico',
+            'descuento.max' => 'El descuento no es permitido',
+        ];
+        
+        $this->validate($request, $rules,$messages);
 
         $cartDetail = new CartDetail();
-        $cartDetail->cart_id = auth()->user()->cart->id; 
+        if (session()->has('remito_id')) {
+            // La variable de sesión existe
+            $cartDetail->cart_id = session('remito_id');  
+            session()->forget('remito_id'); //Se elimina la variable session
+        }else
+        {
+            $cartDetail->cart_id = auth()->user()->cart->id; 
+        }  
+        
         $cartDetail->product_id = $request->product_id;
         $cartDetail->quantity = $request->quantity;
         $cartDetail->price = $request->price;
+        $cartDetail->discount = $request->descuento;
         $cartDetail->save(); 
 
         $notification = 'El item se agregó a tu Pedido!!';
+
         return back()->with(compact('notification'));
 
     }
@@ -74,11 +97,10 @@ class CartDetailController extends Controller
     public function edit($id)
     {
         //Recueperar los datos a modificar
+        $cart = Cart::findOrfail($id);
+        $notification = 'Realizar las modificaciones necesarias al pedido';
 
-        $cartDetail = CartDetail::findOrfail($id);
-        $notification = [];
-
-        return view('admin.remitos.edititem')->with(compact('cartDetail','notification'));
+        return view('admin.pedidos.edit')->with(compact('cart','notification'));
         
         
 

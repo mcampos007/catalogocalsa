@@ -3,9 +3,8 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use App\Estadocheque;
 
-class AddEstadoToEstadochequesTable extends Migration
+class AddDiscountToCartdetailsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,9 +13,7 @@ class AddEstadoToEstadochequesTable extends Migration
      */
     public function up()
     {
-        Schema::table('estadocheques', function (Blueprint $table) {
-            $table->string('estado')->default('');
-        });
+        //
     }
 
     /**
@@ -26,8 +23,6 @@ class AddEstadoToEstadochequesTable extends Migration
      */
     public function down()
     {
-        Schema::table('estadocheques', function (Blueprint $table) {
-            $table->dropColumn('estado');
-        });
+        //
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddPoliprivToUsersTable extends Migration
+class AddObservToCarts extends Migration
 {
     /**
      * Run the migrations.
@@ -14,6 +14,9 @@ class AddPoliprivToUsersTable extends Migration
     public function up()
     {
         //
+        Schema::table('carts', function (Blueprint $table) {
+            $table->string('observ', 100)->nullable();
+        });
     }
 
     /**
@@ -24,5 +27,8 @@ class AddPoliprivToUsersTable extends Migration
     public function down()
     {
         //
+        Schema::table('carts', function (Blueprint $table) {
+            $table->dropColumn('observ');
+        });
     }
 }

@@ -18,15 +18,36 @@ class Cart extends Model
 
 		foreach ($this->details as $detail) 
 		{
-			$total += $detail->quantity * $detail->product->price;
+			//$total += $detail->quantity * ($detail->product->price - $detail->product->discount/100);
+            //$total += $detail->quantity * ($detail->price - $detail->price*$detail->discount/100);
+            $total += $detail->price *$detail->quantity;
 		}
 
 		return $total;
     }
 
+    //Total de Articulos
+    public function getTotalitemsAttribute()
+    {
+        $totalitems = 0;
+
+        foreach ($this->details as $detail) 
+        {
+            //$totalitems += $detail->quantity * ($detail->product->price - $detail->product->discount/100);
+            //$totalitems += $detail->quantity * ($detail->price - $detail->price*$detail->discount/100);
+            $totalitems += $detail->quantity;
+        }
+
+        return $totalitems;
+    }
+
     //$cart->client
      public function client(){
          return $this->belongsTo(Client::class);
+     }
+     //$cart->user
+     public function user(){
+         return $this->belongsTo(User::class);
      }
 
      //$cart->invoice

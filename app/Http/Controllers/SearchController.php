@@ -24,6 +24,9 @@ class SearchController extends Controller
 
         return view('search.show')->with(compact('products','query'));
 
+
+
+
     }
 
     public function data()

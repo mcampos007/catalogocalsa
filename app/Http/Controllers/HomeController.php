@@ -35,15 +35,23 @@ class HomeController extends Controller
       //dd($clifac);
       if ($client->role == "admin")
       {
-        $remitos = Cart::paginate(5);
+        $remitos = Cart::where('status','Pending')->paginate(5);
       }
       else
       {
-        $remitos = Cart::where('user_id',$client->id)->get();
+        if ($client->role == "user")
+        {
+          $remitos = Cart::where('user_id',auth()->user()->id)->get();  
+        }else{
+          $remitos = Cart::where('user_id',auth()->user()->id)->get();  
+          $clients = new Client();
+          $notification = '';             
+        }
+
       }
           
       $sucursales = Sucursal::All();
-    
+      
       return view('home')->with(compact('clients','remitos','sucursales','notification', 'clifacs'));
      }
 }

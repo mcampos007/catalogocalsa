@@ -19,6 +19,8 @@
     <!-- CSS Files -->
     <link href="{{ asset('css/bootstrap.min.css')}}" rel="stylesheet" />
     <link href=" {{ asset('css/material-kit.css')}}" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
     @yield('styles')
 </head>
 

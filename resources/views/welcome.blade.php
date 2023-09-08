@@ -4,7 +4,7 @@
 @section('body-class','landing-page')
 
 @section('styles')
-   <style >
+<style >
     .team .row .col-md-4 {
     margin-bottom: 5em;
     }

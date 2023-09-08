@@ -33,7 +33,7 @@
 </div> -->
 
 
-<div class="header header-filter" style="background-image: url(' {{ asset('img/demofondo1.jpg') }}'); background-size: cover; background-position: top center;"></div>
+<div class="header header-filter" style="background-image: url(' {{ asset("img/demofondo1.jpg") }}'); background-size: cover; background-position: top center;"></div>
 
 <div class="main main-raised">
     <div class="profile-content">
@@ -63,7 +63,6 @@
                     <div class="col-md-4">
                         <div class="team-player">
                             <img src="{{ $product->featured_image_url }}" alt="Thumbnail Image" class="img-raised img-circle">
-                            
                             <h4 class="title">
                                 <a href="{{ url('/products/'.$product->id) }}">{{ $product->name }}    </a>                         
                             </h4>
@@ -74,7 +73,7 @@
                     @endforeach
                 </div>
                 <div class="text-center">
-                     {{ $products->links() }}
+                     {{ $products->appends(['query' => $query])->links() }}
                 </div>
             </div>
 
@@ -82,8 +81,5 @@
         </div>
     </div>
 </div>
-
-
-
 @include('includes.footer')
 @endsection

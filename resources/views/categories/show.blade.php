@@ -33,7 +33,7 @@
 </div> -->
 
 
-<div class="header header-filter" style="background-image: url(' {{ asset('img/demofondo1.jpg') }}');"></div>
+<div class="header header-filter" style="background-image: url(' {{ asset("img/demofondo1.jpg") }}');"></div>
 
 <div class="main main-raised">
     <div class="profile-content">
@@ -67,7 +67,6 @@
                             <h4 class="title">
                                 <a href="{{ url('/products/'.$product->id) }}">{{ $product->name }}    </a>
                                 
-                               
                             </h4>
                             <p class="description">{{ $product->description }}</p>
                             <span class="label label-info">Precio: {{ $product->price }}</span>
@@ -76,7 +75,9 @@
                     @endforeach
                 </div>
                 <div class="text-center">
+                    
                      {{ $products->links() }}
+                    
                 </div>
             </div>
 
@@ -86,27 +87,6 @@
 </div>
 
 <!-- Modal Core -->
-<div class="modal fade" id="ModalAddToCart" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">Seleccione la Cantidad que desea Agregar</h4>
-      </div>
-      <form method="post" action=" {{ url('/cart') }}">
-        {{ csrf_field() }}
-        <input type="hidden" name="product_id" value=" {{ $product->id }} ">
-          <div class="modal-body">
-            <input type="number" name="quantity" value="1" class="form-control">
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default btn-simple" data-dismiss="modal">Cancelar</button>
-            <button type="submit" class="btn btn-info btn-simple">Añadir a Comada</button>
-          </div>
-      </form>
-    </div>
-  </div>
-</div>
 
 @include('includes.footer')
 @endsection

@@ -27,9 +27,9 @@
                                 <th class="text-center">#</th>
                                 <th class="text-center">Código</th>
                                 <th class="col-md-2 text-center">Nombre</th>
-                                <th class="col-md-5 text-center">Descripcion</th>
+                                <th class="col-md-5 text-center">Descripción</th>
                                 <th class="text-center">Categoria</th>
-                                <th >Precio</th>
+                                <th class="text-center">Precio</th>
                                 <th class="text-right">Opciones</th>
                             </tr>
                         </thead>

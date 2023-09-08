@@ -47,7 +47,7 @@ class CategoryController extends Controller
     {
         //
         $products = $category->products()->where('sector_id','1')->where('price','>','0')->paginate(10);
-       // dd($products);
+       //dd($products);
         return view('categories.show')->with(compact('category','products'));
     }
 

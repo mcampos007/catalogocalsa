@@ -14,10 +14,11 @@ use App\CartDetail;
 use App\Invoice;
 use App\InvoiceDetail;
 use App\Sucursal;
-
+use App\Category;
+use App\promotion;
 class CartController extends Controller
 {
-    //
+    // Ver Pedido/Remito
     public function vercart($id)
     {
         //
@@ -46,7 +47,8 @@ class CartController extends Controller
     public function edit($id)
     {
         $remito = Cart::find($id);
-        return view('admin.remitos.index')->with(compact('remito'));
+        $sucursales = Sucursal::all();
+        return view('admin.remitos.index')->with(compact('remito','sucursales'));
     }
 
     public function remitopdf($id)
@@ -65,53 +67,26 @@ class CartController extends Controller
     public function update(Request $request)
     {
         //
+        
         $remito_id = $request->input('remito_id');
 
         
         // Traer el Remito y pasar a Factura.
         $cart = Cart::find($remito_id);
         
-        // Por ahora solo cambio el estado del pedido
-        // $invoice = new Invoice();
-        
-        // $invoice->client_id = $cart->client_id;
-        // $invoice->status = 'Pending';
-        // $invoice->invoice_date = Carbon::now();
-        // $invoice->user_id = auth()->user()->id ;
-        // $invoice->cart_id = $cart->id;
-        // $invoice->total = $cart->total;
-        // $invoice->acuenta = 0;
-        // $invoice->save();
-
-        // Traer los detalles del remito y pasar a Detalle de Factura
-        
-        
-        // foreach ($cart->details as $detail)
-        // {
-        //     $detainvoice = new InvoiceDetail();
-        //     $detainvoice->invoice_id = $invoice->id;
-        //     $detainvoice->product_id = $detail->product_id;
-        //     $detainvoice->quantity = $detail->quantity;
-        //     $detainvoice->price = $detail->price;
-        //     $detainvoice->save();
-        // }
-        
         //Canbiar el estado del Remito  a Invoiced
         $cart->status ="Approved";
         $cart->save();
-         
-         //$admins = User::where('admin',true)->get()->pluck('email');
-         //mail::to($admins)->send(new NewOrder($client, $cart));
-         
-         $notification = [];
-         $notification['type']='Success';
-         $notification['msg']='El pedido  ya fué Confirmado';
+                
+        $notification = "El pedido se ha pasado a facturación";
 
-        
         $remito = Cart::find($remito_id);
-        return view('admin.remitos.index')->with(compact('remito','notification'));
+        
+        return redirect('/home')->with(compact('notification'));
     }
 
+
+    // eliminar un pedido
     public function destroy(Request $request)
     {
        // dd($request->toArray());
@@ -147,8 +122,18 @@ class CartController extends Controller
         //return back()->with(compact('notification'));
         //dd($notification);
 
-        //return redirect('home')->with(compact('clients','remitos','sucursales','notification'));
-        
-         
+        //return redirect('home')->with(compact('clients','remitos','sucursales','notification'));  
+    }
+
+    //Agregar Item a un pedido
+    public function additem($id)
+    {
+        $cart = Cart::findOrfail($id);
+        $categories = Category::has('products')->orderBy('name')->get();
+        $promotions = Promotion::paginate(6);
+        //Crear una variable sesion con el peido
+        session(['remito_id' => $cart->id]);
+      
+        return view('admin.remitos.additem')->with(compact('categories','promotions','cart'));
     }
 }

@@ -81,28 +81,57 @@ class CartController extends Controller
     {
         //
         
-        //dd($request);
+        //dd($request); 
+        //Crear Objeto a la BD del Sistema de Gestión
         $clifac = DB::connection('mysql2')->table('clientes')->find($request->input('cliente_id'));
+       //dd($clifac);
+        //Verificar si existe el cliente para tomar su Id, o darlo de alta
+        $client = Client::find($clifac->id);
+        
+        if ($client)
+        {
+            //Actualizar datos
+            $client->name = $clifac->cliente; 
+            $client->direccion = $clifac->direccion;
+            $client->email = $clifac->email;
+            $client->cuit = $clifac->cuit;
+            $client->save(); 
+        }else{
+            //Dar de alta
+            $client = new Client;
+            
+            $client->id = $clifac->id;
+            $client->name = $clifac->cliente; 
+            $client->direccion = $clifac->direccion;
+            $client->email = $clifac->email;
+            $client->cuit = $clifac->cuit;
+            $client->save(); 
+        }
+
+
+        ///
         $cart = Cart::find($request->input('pedido_id'));
         //dd($clifac);
          $client = auth()->user() ;
          $cart = $client->cart;
          $cart->status = 'Pending';
-         $cart->client_id = $request->input('client_id');
+         $cart->client_id = $request->input('cliente_id');
          $cart->order_date = Carbon::now();
+         $cart->observ = $request->input('observ').'/**'.$cart->id.'**/';
         // $cart->sucursal_id = $request->input('sucursal_id');
-         foreach ($cart->details as $item){
+        // foreach ($cart->details as $item){
            //  echo $item->id."----". $item->product_id;
-             $product = Product::find($item->product_id);
-             $detalle = CartDetail::find($item->id);
+         //    $product = Product::find($item->product_id);
+         //    $detalle = CartDetail::find($item->id);
             // echo "....".$product->price;
             // echo "</br>";
-             $detalle->price = $product->price;
-             $detalle->save(); 
-         }
+           //  $detalle->price = $product->price;
+            // $detalle->save(); 
+         //}
 
-        $cart->save();
+        $cart->save();  // el pedido se pasa a Pendiente para facturación
 
+        // Preparar los datos para guardar el pedido en el sistema de gestión
         $idcliente = $clifac->id;
         $cliente = $clifac->cliente;
         $fecha_p = Carbon::now();
@@ -129,7 +158,7 @@ class CartController extends Controller
                 'nomautoriza' =>  $nomautoriza,
                 'bloqueo'  => $bloqueo 
             ]
-        );
+        );  // REgistro de la cabecera del pedido
 
         // Registrar el  detalle del pedido
         //_id = Null
@@ -138,7 +167,8 @@ class CartController extends Controller
             $idarticulo = $item->product_id;
             $cantidad = $item->quantity;
             $piezas =  '0';
-            $venta_neto = $item->price;
+            $venta_neto = $item->price - $item->price*$item->discount/100;
+
             if ($venta_neto > 0)
             {
                 $detaweb = DB::connection('mysql2')->table('detapedidosweb')->insert(
@@ -151,7 +181,7 @@ class CartController extends Controller
                     'estado' => "1"
                 ]
 
-                );
+                ); //REgsitro del detalle del pedido
             }
         }
         

@@ -5,7 +5,7 @@
 @section('body-class','product-page')
 
 @section('content')
-<div class="header header-filter" style="background-image: url(' {{ asset('img/demofondo1.jpg') }}');background-size: cover; background-position: top center;">
+<div class="header header-filter" style="background-image: url(' {{ asset("img/demofondo1.jpg") }}');background-size: cover; background-position: top center;">
 </div>
 <div class="main main-raised">
     <div class="container">
@@ -17,7 +17,7 @@
                 @endif
         
         <div class="container">
-            <h2 class="title">Datos del Pedido N° {{ $cartDetail->cart_id }} </h2>
+            <h2 class="title">Item del Pedido N° {{ $cartDetail->cart_id }} </h2>
         </div>
         <div class="tab-content gallery">
             <form method="post" action=" {{ url('/admin/remito/item') }}" >
@@ -56,8 +56,8 @@
 
                     <div class="col-sm-4">
                         <div class="form-group">
-                            <label for="stocklocal">Stock Local</label>
-                            <input type="text" value="{{ $cartDetail->stocklocal  }} " placeholder="" class="form-control" name="stocklocal"  />
+                            <label for="price">Precio</label>
+                            <input type="text" value="{{ $cartDetail->price  }} " placeholder="" class="form-control" name="price"  />
                         </div>
                     </div>            
                 </div>

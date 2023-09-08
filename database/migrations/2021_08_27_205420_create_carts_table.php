@@ -18,7 +18,7 @@ class CreateCartsTable extends Migration
 
             $table->date('order_date')->nullable();
             $table->date('arrived_date')->nullable();
-            $table->string('status');   //Active, Pending, Approved, Cancelled, En_Reparto Finished, Invoiced
+            $table->string('status');   //Active, Pending, Approved, Preparing, Cancelled, Delivery Finished, Invoiced
 
             //FK
             $table->integer('user_id')->unsigned();

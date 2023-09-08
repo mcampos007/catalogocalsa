@@ -30,6 +30,7 @@ class AddFieldSucursalIdToCartsTable extends Migration
     {
         //
         Schema::table('carts', function (Blueprint $table) {
+            $table->dropForeign('carts_sucursal_id_foreign');
             $table->dropColumn('sucursal_id');
         });
     }

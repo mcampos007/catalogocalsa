@@ -23,7 +23,7 @@ class Category extends Model
     	$featured_Image_url = $this->image;
     	if(!$featured_Image_url)
     	{
-    		return 'images/default.jpg';
+    		return '/public/images/default.jpg';
     	}
     	$featured_Image_url = $this->image;
 	   	if (substr($this->image,0,4) === "http"){
