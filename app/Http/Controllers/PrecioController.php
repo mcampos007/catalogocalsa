@@ -15,7 +15,6 @@ class PrecioController extends Controller
     public function index(Request $request){
         
         $texto = trim($request->input('texto'));
-        
         $usuario_id = auth()->user()->id;
         $recargo = auth()->user()->recargo;
         
@@ -79,6 +78,25 @@ class PrecioController extends Controller
         return view('search.showprices')->with(compact('products','query'));
 
     }
+
+    // Precios al publico
+    public function preciospublico(Request $request){
+
+    $texto = trim($request->input('texto'));
+    if ($texto != ''){
+       //dd($texto);
+        $products = DB::table('products')
+            ->select('id','name','price','nro_art','topedesc','con_descuento')
+            ->where('name','LIKE','%'.$texto.'%')
+            ->orderBy('name','asc')
+            ->paginate(10);
+    }else{
+        $products = Product::paginate(10);  
+    }
+    return view('guest.precios')->with(compact('products','texto'));
+        
+    }
+
 
 
 }

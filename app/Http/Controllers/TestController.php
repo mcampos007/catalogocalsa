@@ -11,10 +11,11 @@ class TestController extends Controller
 {
     //
     function welcome(){
+
     	//$products = Product::paginate(9);
     	$categories = Category::has('products')->orderBy('name')->get();
         $promotions = Promotion::paginate(6);
-       // dd($categories);
+       //dd($categories);
     	return view('welcome')->with(compact('categories','promotions'));
     }
 

@@ -53,10 +53,9 @@
                     @guest      
                         <li><a href="{{ route('login') }}">Ingresar</a></li>
                         <li><a href="{{ route('register') }}">Registro</a></li>
-                        <li><a href="{{ url('/precios') }}">Lista de Precios</a></li>
-                       <!-- <li><a href="#">Registro</a></li> -->
+                        <li><a href="{{ url('preciospublico') }}">Lista de Precios</a></li>
                     @else
-                        @if (auth()->user()->role == 'admin')
+                         @if (auth()->user()->role == 'admin')
                             @include('menus.menuadmin')
                         @endif
                         @if (auth()->user()->role == 'client')
@@ -64,8 +63,7 @@
                         @endif
                         @if (auth()->user()->role == 'usuario')
                             @include('menus.menuusuario')
-                        @endif 
-                                
+                        @endif
                     @endguest
                     <!-- <li>
                         <a href="https://twitter.com/CreativeTim" target="_blank" class="btn btn-simple btn-white btn-just-icon">

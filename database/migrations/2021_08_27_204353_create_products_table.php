@@ -19,12 +19,12 @@ class CreateProductsTable extends Migration
             $table->string('name');
             $table->string('description');
             $table->text('long_description')->nullable();
-            $table->float('price');
+            $table->double('price',12,2);
             //codigo art
             $table->string('nro_art')->nullable();
             $table->decimal('topedesc',5,2)->nullable();
             $table->decimal('stkdisponible',8,2)->nullable();
-            $table->float('con_descuento')->nullable();
+            $table->double('con_descuento',12,2)->nullable();
             
             //fk Category
             $table->integer('category_id')->unsigned()->nullable();

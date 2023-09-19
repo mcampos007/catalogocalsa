@@ -19,6 +19,7 @@ Route::get('/precios/json', 'PrecioController@data');
 Route::resource('/precios',PrecioController::class);*/
 
 Route::get('/precios','PrecioController@index');
+Route::get('/preciospublico','PrecioController@preciospublico');
 Route::get('/preciosf','PrecioController@indexf');
 
 
