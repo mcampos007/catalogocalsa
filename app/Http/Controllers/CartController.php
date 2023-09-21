@@ -10,7 +10,7 @@ use Mail;
 use App\Cart;
 use App\Product;
 use App\CartDetail;
-use App\client;
+use App\Client;
 use App\Sucursal;
 use DB;
 //use App\CartDetail;
@@ -80,8 +80,6 @@ class CartController extends Controller
     public function update(Request $request)
     {
         //
-        
-        //dd($request); 
         //Crear Objeto a la BD del Sistema de Gestión
         $clifac = DB::connection('mysql2')->table('clientes')->find($request->input('cliente_id'));
        //dd($clifac);

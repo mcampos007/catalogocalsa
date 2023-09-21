@@ -106,7 +106,7 @@
                                 </div>
                             </div>
                             <div class="text-center">
-                                <form method="post" action="{{ url('/order')}}">
+                                <form method="post" action="{{ url('/closeorder')}}">
                                     {{ csrf_field() }}
                                     <input type="hidden" name="pedido_id" value="{{ auth()->user()->cart->id }}">
 
@@ -180,9 +180,11 @@
                                                     {{ method_field('DELETE')}}
                                                     <input type="hidden" name="cart_detail_id" value="{{ $pedido->id }}">
                                                     <!-- <a href="/usuario/editaitemdelpedido/{{ $pedido->id }}" type="button" rel="tooltip" title="Editar" class="btn btn-info btn-simple btn-xs"> -->
+                                                    @if (auth()->user()->role=="admin")
                                                     <a href=" {{url('/admin/remito/'.$pedido->id) }}" type="button" rel="tooltip" title="Editar" class="btn btn-info btn-simple btn-xs">
                                                     <i class="fa fa-edit"></i>
                                                     </a>
+                                                    @endif
                                                     <!-- <a href=" {{url('/admin/remito/'.$pedido->id).'/reabrir' }}" type="button" rel="tooltip" title="Abrir Nuevamente" class="btn btn-info btn-simple btn-xs">
                                                     <span class="material-icons">done</span>
                                                     </a> -->

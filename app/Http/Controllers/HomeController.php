@@ -39,7 +39,7 @@ class HomeController extends Controller
       }
       else
       {
-        if ($client->role == "user")
+        if ($client->role == "user" )
         {
           $remitos = Cart::where('user_id',auth()->user()->id)->get();  
         }else{

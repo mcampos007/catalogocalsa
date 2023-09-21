@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title','Todas nuestras Propuestas')
+@section('title','Detalle del Pedido')
 
 @section('body-class','product-page')
 
@@ -89,14 +89,16 @@
                 <!-- Fin detalle del Remito -->
             </table>
             <p> <strong> Importe Total: {{$remito->total }}</strong>  </p>
-            <a href=" {{ url('/admin/remito/'.$remito->id .'/remitopdf') }}" class="btn btn-default">Ver Pdf</a>
+            
             @if(auth()->user()->role="Admin")
                 @if ($remito->status =="Pending")
+                    <a href=" {{ url('/admin/remito/'.$remito->id .'/remitopdf') }}" class="btn btn-default">Ver Pdf</a>
                     <a href=" {{ url('/admin/remito/'.$remito->id .'/facturar') }}" class="btn btn-default">Autorizar y pasar a Facturación</a>            
+                    <a href=" {{ url('/admin/remito/'.$remito->id.'/additem') }}" class="btn btn-default">Agregar Item</a>
+                    <a href=" {{ url('/home') }}" class="btn btn-default">Volver</a>
                 @endif
             @endif
-            <a href=" {{ url('/admin/remito/'.$remito->id.'/additem') }}" class="btn btn-default">Agregar Item</a>
-            <a href=" {{ url('/home') }}" class="btn btn-default">Volver</a>
+            
         </form>
     </div>
     </div>

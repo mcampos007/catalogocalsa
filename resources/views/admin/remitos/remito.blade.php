@@ -43,6 +43,15 @@
         <td class="izquierda">
         Sucursal: {{ $remito->sucursal->name }} 
         </td>
+    </tr> 
+
+    <tr >
+        <td class="izquierda">
+        Cliente: {{ $remito->client_name }} 
+        </td>
+        <td class="izquierda">
+        Observ: {{ $remito->observ }} 
+        </td>
     </tr>        
 </table>
 </div>
@@ -61,7 +70,7 @@
         <td class="izquierda"> {{ $item->product->name }}</td>
         <td class="derecha"> </td>
         <td class="derecha"> {{ $item->quantity }}</td>
-        <td class="derecha"> </td>
+        <td class="derecha"> {{ $item->price }}</td>
     
     </tr>
   
@@ -75,7 +84,7 @@
 <table>
     <tr colspan="4">
             <td class="derecha" width="70%">Total</td>
-            <td class="derecha"> </td>
+            <td class="derecha"> {{$remito->total}}</td>
     
     </tr>
   

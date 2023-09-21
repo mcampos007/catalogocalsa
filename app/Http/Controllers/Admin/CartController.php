@@ -56,8 +56,10 @@ class CartController extends Controller
         $today = Carbon::now()->format('d-m-Y');
         $remito = Cart::find($id);
         $detalle = $remito->details;
-      //  dd($remito->client_Name);
-       //dd($remito->details);
+        if (!$remito->sucursal_id)
+        {
+           $remito->sucursal_id= 1;
+        }
         $pdf = PDF::loadView('admin.remitos.remito',compact('remito','detalle'));
         //return $pdf->download();
         return $pdf->stream();

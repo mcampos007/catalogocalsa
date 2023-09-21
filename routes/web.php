@@ -36,7 +36,7 @@ Route::get('/cart/{id}','CartDetailController@edit');
 
 
 
-Route::post('/order','CartController@update');		//Cerrar Pedido 
+Route::post('/closeorder','CartController@update');		//Cerrar Pedido 
 Route::post('/feedback','FeedbackController@update');
 
 Auth::routes();
