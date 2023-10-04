@@ -23,21 +23,16 @@ class CajaController extends Controller
     //LIstado de Cajas
     public function index()
     {
-       
        // dd($puntodeventas);
         if (auth()->user()->role == "usuario")
         {
-         $cajas = Caja::where('status','Abierta')->where('user_id',auth()->user()->id)->paginate(10);
-             
+            $cajas = Caja::where('status','Abierta')->where('user_id',auth()->user()->id)->paginate(10);        
         }
         else
         {
             $cajas = Caja::where('status','Abierta')->paginate(10);
-            
         }
         return view('admin.cajas.index')->with(compact('cajas'));
-            
-
     }
 
     // Lista de Cajas Cerradas
@@ -47,6 +42,11 @@ class CajaController extends Controller
             $cajas = Caja::where('status','Cerrada')->paginate(10);
         else
             $cajas = Caja::where('status','Cerrada')->where('user_id', auth()->user()->id)->paginate(10);
+        $cajas = Caja::where('status', 'Cerrada')
+            ->where('user_id', auth()->user()->id)
+            ->orderBy('id', 'desc') // Ordenar por ID de mayor a menor
+            ->limit(3)->paginate(10); // Limitar a las últimas tres cajas
+            
         return view('admin.cajas.indexcerradas')->with(compact('cajas'));
     }
 
@@ -698,8 +698,7 @@ class CajaController extends Controller
 
     // Form de Cierre de Caja
     public function formcerrar($id){
-        $caja = Caja::find($id);
-        
+        $caja = Caja::find($id);      
         $gastos = Gasto::where('cajas_id',$caja->id)->get();
         $sumgasto = 0;
         foreach($gastos as $g){
@@ -753,11 +752,12 @@ class CajaController extends Controller
         if(auth()->user()->role=="admin")
             return redirect('/admin/cajas');
         else
-            return redirect('/usuario/cajas');
+            return redirect('/usuario/cajascerradas');
 
     }
     // Imprimir Caja Cerrada
     public function imprimir(Request $request){
+        
        $id = $request->input("caja_id");
         $caja = Caja::find($id);
         
@@ -794,7 +794,7 @@ class CajaController extends Controller
         $totbillete += $caja->efectivo->billete50 * 50;
         $totbillete += $caja->efectivo->billete20 * 20;
         $totbillete += $caja->efectivo->billete10 * 10;
-       // dd($caja->gastos());
+       //dd($caja->gastos());
         return view('admin.cajas.imprime')->with(compact(
             'caja','totbillete',
             'gastos','sumgasto',
@@ -814,7 +814,8 @@ class CajaController extends Controller
         //dd($data1);
          
         $caja = Caja::find($id);
-        $efectivo = Efectivo::find($caja->id);
+        //dd($caja);
+        
         $totbillete = 0.00;
         $totbillete += $caja->efectivo->billete1000 * 1000;
         $totbillete += $caja->efectivo->billete500 * 500;
@@ -823,6 +824,7 @@ class CajaController extends Controller
         $totbillete += $caja->efectivo->billete50 * 50;
         $totbillete += $caja->efectivo->billete20 * 20;
         $totbillete += $caja->efectivo->billete10 * 10;
+        $efectivo = $totbillete;
         //TArjetas
         $tarjetas = Tarjeta::where('cajas_id',$caja->id)->get();
         $sumtarjetas = 0;
@@ -847,7 +849,7 @@ class CajaController extends Controller
         foreach($cheques as $g){
             $sumcheques += $g->importe;
         }
-
+        //dd($totbillete);
         view()->share('cajaPDF',
             $caja, 
             $efectivo, 
@@ -881,5 +883,34 @@ class CajaController extends Controller
   
         return $pdf->download('cajadiaria.pdf');
     }
-    
+    //Eliminación de una caja
+    public function destroy(Request $request , $id)
+    {
+        //
+        $caja = Caja::findOrFail($id);
+        if ($caja){
+            if($caja->status = "Abierta"){
+                $caja->delete();
+                return redirect('admin/cajas');
+                
+            }
+            
+        }
+
+         /*   
+        $tarjeta = Tarjeta::find($id);
+        $caja_id = $tarjeta->cajas_id;
+        //dd($caja_id);
+        $tarjeta->delete();
+        $caja = Caja::find($tarjeta->cajas_id);
+        
+        $tarjetas = Tarjeta::where('cajas_id',$caja->id)->paginate(5);
+        $totals = Tarjeta::where('cajas_id', $caja->id)->get();
+        $t = 0;
+        foreach($totals as $total){
+            $t = $t +$total->importe;
+        }
+        //dd($t);
+        return view('admin.cajas.tarjeta')->with(compact('caja','tarjetas','t'));*/
+    }
 }

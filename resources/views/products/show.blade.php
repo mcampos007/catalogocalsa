@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title','Bienvenido a Aristaeus Panel de Control')
+@section('title','Producto Seleccionado')
 
 @section('body-class','profile-page')
 
@@ -123,19 +123,19 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-4" >
                     <label for="descmax">Desc. Max.</label>
-                    <input type="number" name="descmax" value="{{$product->topedesc}}"  class="form-control" disabled>        
+                    <input type="number" id="descmax" name="descmax" value="{{$product->topedesc}}"  class="form-control" disabled>        
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4" id="divdesc">
                     <label for="descuento">Descuento</label>
-                    <input type="number" id="descuento" name="descuento" value="0" step="0.01" class="form-control" onchange="reCalcularImporte()">
+                    <input type="number" id="descuento" name="descuento"  step="0.01" class="form-control"  value="{{$product->topedesc}}" readonly>
                 </div>
             </div>
             <div class="row" id="totales">
                 <div class="col-md-4">
                     <label for="total">Importe Total $</label>
-                    <input type="text" id="total" name="total" value="{{$product->price}}"  disabled>
+                    <input type="text" id="total" name="total" value="{{round($product->price - $product->price*$product->topedesc/100,2) }}"  readonly>
                 </div>
             </div> 
           </div>
@@ -154,11 +154,25 @@
 <script>
     function reCalcularImporte(){
         var total = 0;
+        var totdescuento = 0;
         var cant =document.getElementById("cantidad").value;
-        var precio = document.getElementById("precio").value;;
-        var desc = document.getElementById("descuento").value;;
-        total = cant * (precio - precio*desc/100);
+        var precio = document.getElementById("precio").value;
+        var descmax = document.getElementById("descmax").value
+        
+        totdescuento = (descmax /100 * precio * cant);
+        totdescuento = totdescuento.toFixed(2);
+       
+        total = cant * precio - totdescuento;
         total = total.toFixed(2);
+        
+        // var _html ='';
+        // _html = _html + '<label for="descuento">Descuento:</label>';
+        // _html = _html + '<input type="number" id="descuento" name="descuento"  step="0.01" class="form-control"  value="';
+        // _html = _html + descmax;
+        // _html = _html + ' readonly"></div>';
+        // document.getElementById("divdesc").innerHTML = _html;
+
+        var desc = document.getElementById("descuento").value;
         var _html ='<label for="total">Importe Total $</label>';
         _html = _html + '<input type="text" id="total" name="total" disabled value="';
         _html = _html + total;

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title','Bienvenido a Aristaeus Panel de Control')
+@section('title','Lista de productos')
 
 @section('body-class','product-page')
 

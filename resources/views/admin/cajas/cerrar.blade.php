@@ -5,13 +5,13 @@
 @section('body-class','product-page')
 
 @section('content')
-<div class="header header-filter" style="background-image: url(' {{ asset('img/demofondo1.jpg') }}');background-size: cover; background-position: top center;">
+<div class="header header-filter" style="background-image: url(' {{ asset("img/demofondo1.jpg") }}');background-size: cover; background-position: top center;">
 </div>
 <div class="wrapper">
     <div class="main main-raised">
         <div class="container">
             <div class="section text-center">
-                {{-- <h2 class="title">Cierre de Caja N° {{$caja->id}}</h2> --}}
+                <!-- <h2 class="title">Cierre de Caja N° {{$caja->id}} Sucrsal: {{ $caja->id }}</h2>  -->
                 {{-- <div class="team">
                     @if (session()->has('msj'))
                             <div class="alert alert-danger" role="alert">

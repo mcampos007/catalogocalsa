@@ -21,6 +21,7 @@
                         <th class="text-center">Nombre</th>
                         <th >Precio</th>
                         <th >Cantidad</th>
+                        <th >% Desc.</th>
                         <th >Sub total</th>
                     </tr>
                 </thead>
@@ -35,7 +36,8 @@
                             </td>
                             <td >$ {{ $detail->product->price }}</td>
                             <td> {{ $detail->quantity }}</td>
-                            <td> $ {{ $detail->quantity * $detail->product->price }}</td>
+                            <td> {{ $detail->discount }}</td>
+                            <td> $ {{ $detail->quantity *( $detail->price - $detail->price*$detail->discount /100) }}</td>
                         
                         </tr
                     @endforeach>

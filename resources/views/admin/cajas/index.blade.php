@@ -5,7 +5,7 @@
 @section('body-class','product-page')
 
 @section('content')
-<div class="header header-filter" style="background-image: url(' {{ asset('img/demofondo1.jpg') }}');background-size: cover; background-position: top center;">
+<div class="header header-filter" style="background-image: url(' {{ asset("img/demofondo1.jpg") }}');background-size: cover; background-position: top center;">
 </div>
 
 <div class="main main-raised">
@@ -68,8 +68,6 @@
                                         @else
                                             @include('admin.cajas.indexadmin')
                                         @endif
-                                            
-                                        
                                     </form>
                                 </td>
 

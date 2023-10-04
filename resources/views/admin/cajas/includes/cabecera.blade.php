@@ -1,4 +1,4 @@
-<h2 class="title">Cierre de Caja N° {{$caja->id}}</h2>
+<h2 class="title">Cierre de Caja N° {{$caja->id}} Sucursal: {{ $caja->puntodeventa->name}}</h2>
 <table class="table-responsive table-hover  table-striped">
     <tr>
         <th class="col-md-2 text-center">#</th>

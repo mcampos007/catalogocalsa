@@ -51,7 +51,7 @@
                         <th class="text-center">Nombre</th>
                         <th >Precio</th>
                         <th >Cantidad</th>
-                        <th >Stk en la Suc</th>
+                        <th >% Descuento</th>
                         <th >Sub total</th>
                     </tr>
                 </thead>
@@ -71,8 +71,8 @@
                             <td> 
                                 {{ $detail->quantity }}
                             </td>
-                            <td> {{ $detail->stocklocal }}</td>
-                            <td> $ {{ $detail->quantity * $detail->price }}</td>
+                            <td> {{ $detail->discount }}</td>
+                            <td> $ {{ $detail->quantity *( $detail->price - $detail->price*$detail->discount /100)}}</td>
                             <td scope="row">
                                 @if ($remito->status == 'Pending')
                                 

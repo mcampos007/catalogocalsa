@@ -68,10 +68,8 @@ class CartController extends Controller
     //Pasaje de Remito a FActura
     public function update(Request $request)
     {
-        //
-        
+        // 
         $remito_id = $request->input('remito_id');
-
         
         // Traer el Remito y pasar a Factura.
         $cart = Cart::find($remito_id);

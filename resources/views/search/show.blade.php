@@ -31,10 +31,7 @@
 @section('content')
 <!-- <div class="header header-filter" style="background-image: url(' {{ asset('img/Demofondo1.jpeg') }}'); background-size: cover; background-position: top center;">
 </div> -->
-
-
 <div class="header header-filter" style="background-image: url(' {{ asset("img/demofondo1.jpg") }}'); background-size: cover; background-position: top center;"></div>
-
 <div class="main main-raised">
     <div class="profile-content">
         <div class="container">

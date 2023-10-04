@@ -5,13 +5,13 @@
 @section('body-class','product-page')
 
 @section('content')
-<div class="header header-filter" style="background-image: url(' {{ asset('img/demofondo1.jpg') }}');background-size: cover; background-position: top center;">
+<div class="header header-filter" style="background-image: url(' {{ asset("img/demofondo1.jpg") }}');background-size: cover; background-position: top center;">
 </div>
 
 <div class="main main-raised">
     <div class="container">
         <div class="section text-center">
-            <h2 class="title">Listado de Cajas Cerradas {{auth()->user()->role}}</h2>
+            <h2 class="title">Listado de Cajas Cerradas para el usuario: {{auth()->user()->name}}</h2>
             <div class="card-body">
                 @if (session('notification'))
                 

@@ -20,12 +20,7 @@ class SearchController extends Controller
             $id = $products->first()->id;
             return redirect("products/$id");
         }
-
-
         return view('search.show')->with(compact('products','query'));
-
-
-
 
     }
 

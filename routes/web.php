@@ -52,8 +52,8 @@ Route::middleware(['auth','admin'])->prefix('admin')->namespace('Admin')->group(
 	Route::get('/cajas/{id}/cerrar','CajaController@formcerrar');	// Form de Cierre de Caja
 	Route::post('/cajas/cerrar','CajaController@cerrar');			// Cierre de Caja
 	Route::post('/cajas/{id}/imprimir','CajaController@imprimir');	// IMprimir Caja Cerrada
-
-	Route::get('/cajascerradas','CajaController@indexcerradas');			// Listado de Cajas Cerradas
+	Route::delete('/cajas/{id}','CajaController@destroy');			// Eliminar una caja
+	Route::get('/cajascerradas','CajaController@indexcerradas');	// Listado de Cajas Cerradas
 	
 // Arqueos
 	Route::get('/cajas/{id}/arqueo','CajaController@arqueo');	// Form para registro de Arqueo
@@ -193,8 +193,9 @@ Route::middleware(['auth', 'usuario'])->prefix('admin')->namespace('Admin')->gro
 	Route::get('/orders/{id}/additem', 'CartController@additem');				//Agregar item al pedido de un vendedor
 });
 
+// Ruta para el usuario
 Route::middleware(['auth', 'usuario'])->prefix('usuario')->namespace('Admin')->group(function () {
-//Precios protegido
+	//Precios protegido
 	Route::get('/precios','PrecioController@index');
 	Route::get('/remito/{id}','PrecioController@verremito');				//Ver Contenido del Remito
 	Route::get('/preciosf','PrecioController@indexf');						
@@ -203,6 +204,7 @@ Route::middleware(['auth', 'usuario'])->prefix('usuario')->namespace('Admin')->g
 	Route::delete('/cart','PrecioController@destroy');		//Eliminar un Pedido 
 	Route::post('/cart/edit','PrecioController@update');	//Actualizar datos del Item
 	Route::get('/editaitemdelpedido/{id}', 'PrecioController@editaitem');	// Editar Item del Pedido
+
 	// Módulo de Cajas
 	Route::get('/cajas','CajaController@index');					// Caja Nueva
 	Route::get('/cajas/create','CajaController@create');			// Form de alta de Cajas
@@ -210,7 +212,7 @@ Route::middleware(['auth', 'usuario'])->prefix('usuario')->namespace('Admin')->g
 	Route::get('/cajas/{id}/cerrar','CajaController@formcerrar');	// Form de Cierre de Caja
 	Route::post('/cajas/cerrar','CajaController@cerrar');			// Cierre de Caja
 	Route::post('/cajas/{id}/imprimir','CajaController@imprimir');	// IMprimir Caja Cerrada
-	Route::post('/cajas/caja-pdf','CajaController@generatePDF');				//Generar pd de caja
+	Route::post('/cajas/caja-pdf','CajaController@generatePDF');	// Generar pd de caja
 
 	Route::get('/cajascerradas','CajaController@indexcerradas');			// Listado de Cajas Cerradas
 
