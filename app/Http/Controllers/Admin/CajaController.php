@@ -17,9 +17,54 @@ use App\Otropago;
 use App\Tipomovimiento;
 use Illuminate\Support\Facades\DB;
 use PDF;
+use XBase\TableReader;
+
 
 class CajaController extends Controller
 {
+    // Listar Cajas locales
+
+    private function ultimaCaja(){
+        $rutaArchivoDBF = realpath('F:/calsavta/DATA/cajadiaria.dbf');
+        $table = new TableReader($rutaArchivoDBF);
+        $cantRegistros = $table->getRecordCount();
+        $caja = $table->moveTo($cantRegistros-1);
+        $cajaActual = [];
+        if ($caja->get('estado') == "C" )
+        {
+            $cajaActual = [
+                "id_unico" => $caja->get('id_unico'),
+                "id_gen" => $caja->get('id_gen'),
+                "fecha" => $caja->get('fecha'),
+                "saldo_ini" => $caja->get('saldo_ini'),
+                "saldo_fin" => $caja->get('saldo_fin'),
+                "efectivo" => $caja->get('efectivo'),
+                "valores" => $caja->get('valores'),
+                "tarjetas" => $caja->get('tarjetas'),
+                "otros" => $caja->get('otros'),
+                "estado" => $caja->get('estado'),
+                "fecha_cie" => $caja->get('fecha_cie'),
+            ];
+        };
+        
+        return $cajaActual;
+       /* while ($record = $table->nextRecord()) {
+            echo $record->get('my_column');
+            //or
+            echo $record->my_column;
+        }*/
+
+    }
+    // Determinar la sucursal en la configuracion de la tabla configuracion
+    private function getSucursalLocal(){
+        $rutaArchivoDBF = realpath('F:/calsavta/DATA/configuracion.dbf');
+        $table = new TableReader($rutaArchivoDBF); 
+        $configuracion = $table->moveTo(1);
+        $sucursal_id = $configuracion->idsuc;
+        return $sucursal_id;
+        
+
+    }
     //LIstado de Cajas
     public function index()
     {
@@ -55,9 +100,18 @@ class CajaController extends Controller
     {
         //
         $users = User::all();
-        $puntodeventas = Puntodeventa::all();
-        //dd($puntodeventas);
-        return view('admin.cajas.create')->with(compact('puntodeventas','users'));
+        $caja = $this->ultimaCaja();
+        $sucursal_id = $this->getSucursalLocal();
+        $puntodeventa = Puntodeventa::findOrfail($sucursal_id);
+        if (count($caja) >0 ){
+            return view('admin.cajas.create')->with(compact('puntodeventa','users','caja' ));    
+        }
+        else{
+            $notification = "Error: la Caja esta abierta o no existe";
+            return back()->with(compact('notification')) ;
+        }
+
+        
     }
 
     public function store(Request $request)

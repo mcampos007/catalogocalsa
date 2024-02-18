@@ -5,7 +5,7 @@
 @section('body-class','product-page')
 
 @section('content')
-<div class="header header-filter" style="background-image: url(' {{ asset('img/demofondo1.jpg') }}'); background-size: cover; background-position: top center;">
+<div class="header header-filter" style='background-image: url(" {{ asset('img/demofondo1.jpg') }}"); background-size: cover; background-position: top center;'>
 </div>
 
 <div class="main main-raised">
@@ -29,23 +29,34 @@
             @endif
                 {{csrf_field() }}  
                 <div class="form-row">
-                    <label for="address">Fecha</label>
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
-                        </div>
-                        <input class="form-control datepicker" placeholder="Seleccionar Fecha" 
-                        name ="fecha"
-                        id = "date" type="text" value="{{ old('fecha',date('Y-m-d'))}}" 
-                        data-date-format="yyyy-mm-dd" 
-                        data-date-start-date="{{ date('Y-m-d')}}"  
-                        data-date-end-date="+30d"
-                        required>
-                    </div>   
+                    <div class="form-group col-md-4">
+                        <label for="address">Fecha</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                            </div>
+                            <input class="form-control datepicker" placeholder="Seleccionar Fecha" 
+                            name ="fecha"
+                            id = "date" type="text" value="{{ old('fecha',date('Y-m-d'))}}" 
+                            data-date-format="yyyy-mm-dd" 
+                            data-date-start-date="{{ date('Y-m-d')}}"  
+                            data-date-end-date="+30d"
+                            required>
+                        </div>       
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="numerocaja">Número de Caja</label>
+                        <input type="text" name="numerocaja" class="form-control" value="{{ $caja['id_unico'] }}" readonly> 
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="sucursal">Sucursal</label>
+                        <input type="text" name="sucursal" class="form-control" value="{{ $puntodeventa->name}}" readonly> 
+                    </div>
+                    
                 </div>         
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                      <label for="puntodeventa">Punto de Venta</label>
+                      <!-- <label for="puntodeventa">Punto de Venta</label>
                       <select id="puntodeventa_id" class="form-control" 
                         id="puntodeventa" name="puntodeventa_id" required>
                         <option value="0" selected="">...</option>
@@ -54,7 +65,7 @@
                                 {{$puntodeventa->name}}
                             </option>
                         @endforeach
-                      </select>
+                      </select> -->
                     </div>
                     <div class="form-group col-md-6">
                       <label for="user">Usuario</label>

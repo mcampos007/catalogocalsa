@@ -11,7 +11,7 @@
 <div class="main main-raised">
     <div class="container">
         <div class="section text-center">
-            <h2 class="title">Listado de Cajas </h2>
+            <h2 class="title">Listado de Cajas  </h2>
             <div class="card-body">
                 @if (session('notification'))
                 
@@ -31,10 +31,12 @@
                 <div class="row ">
                     @if(auth()->user()->role=="admin")
                         <a href="{{ url('/admin/cajas/create')}}" class="btn btn-primary btn-round">
+
                     @else
                         <a href="{{ url('/usuario/cajas/create')}}" class="btn btn-primary btn-round">
                     @endif
                         Nueva Caja</a>
+                        
                     <table class="table-responsive table-hover">
                         <thead>
                             <tr>
@@ -76,6 +78,7 @@
                         </tbody>
                     </table>
                     {{ $cajas->links() }}
+
                 </div>
             </div>
 

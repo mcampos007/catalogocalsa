@@ -54,6 +54,7 @@ Route::middleware(['auth','admin'])->prefix('admin')->namespace('Admin')->group(
 	Route::post('/cajas/{id}/imprimir','CajaController@imprimir');	// IMprimir Caja Cerrada
 	Route::delete('/cajas/{id}','CajaController@destroy');			// Eliminar una caja
 	Route::get('/cajascerradas','CajaController@indexcerradas');	// Listado de Cajas Cerradas
+	Route::get('/cajas/locales','CajaController@cajaslocales');	// Listado de Cajas Cerradas
 	
 // Arqueos
 	Route::get('/cajas/{id}/arqueo','CajaController@arqueo');	// Form para registro de Arqueo
