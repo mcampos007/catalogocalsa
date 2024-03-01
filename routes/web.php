@@ -185,6 +185,8 @@ Route::middleware(['auth','admin'])->prefix('admin')->namespace('Admin')->group(
 	Route::get('/pagos','PaymentController@index');								//Listado de Clientes para Pagos
 	Route::get('/pagos/{id}/nuevopago','PaymentController@nuevopago');			//Formulario de Pagos
 	Route::post('/pagos','PaymentController@store');							// Rergistro del pago en la BD
+// Actualizar Precios
+	Route::get('/updatecalsaprice','PriceController@updatecalsaprice' );		//Actualizar Precios del catalogo desde DB de Calsa
 });
 
 //Parte Admin

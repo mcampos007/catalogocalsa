@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     //
+    protected $connection = 'mysql';
+    //
     //$product->category
     public function category(){
     	return $this->belongsTo(Category::class);

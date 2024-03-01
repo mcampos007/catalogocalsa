@@ -35,6 +35,12 @@
             <a href="{{ url('/admin/preciosf') }}">Lista de Precios Fiambres</a>
         </li>
         <li>
+            <a href="{{ url('/admin/updatecalsaprice') }}">Actualizar Precios Productos Calsa</a>
+        </li>
+        <li>
+            <a href="{{ url('/admin/updatefiambresprice') }}">Actualizar Precios Productos  Fiambres</a>
+        </li>
+        <li>
             <a href="{{ url('/admin/products')}}">Reportes</a>
         </li>        
     </ul>
