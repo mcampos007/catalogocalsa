@@ -29,23 +29,24 @@
             <a href="{{ url('/home')}}">Ver Mis Pedidos</a>
         </li>
         <li>
-            <a href="{{ url('/admin/precios') }}">Lista de Precios Calsa</a>
+            <a href="{{ url('/admin/precios') }}">Lista de Precios </a>
         </li>
-        <li>
+        <!-- <li>
             <a href="{{ url('/admin/preciosf') }}">Lista de Precios Fiambres</a>
-        </li>
+        </li> -->
         <li>
-            <a href="{{ url('/admin/updatecalsaprice') }}">Actualizar Precios Productos Calsa</a>
+            <a href="{{ url('/admin/updatecalsaprice') }}">Actualizar Precios </a>
         </li>
-        <li>
+
+        <!-- <li>
             <a href="{{ url('/admin/updatefiambresprice') }}">Actualizar Precios Productos  Fiambres</a>
-        </li>
+        </li> -->
         <li>
             <a href="{{ url('/admin/products')}}">Reportes</a>
         </li>        
     </ul>
 </li>
-{{-- Menu de Compras--}}
+{{-- Menu de Compras
 <li class="dropdown">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
         Compras <span class="caret"></span>
@@ -62,7 +63,8 @@
         </li>
     </ul>
 </li>
-{{-- Menu de Cajas --}}
+--}}
+{{-- Menu de Cajas
 <li class="dropdown">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
         Cajas <span class="caret"></span>
@@ -85,7 +87,8 @@
         </li>        
     </ul>
 </li>
-{{-- Menú de Tablas --}}
+ --}}
+{{-- Menú de Tablas
 <li class="dropdown">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
         Tablas del Sistema <span class="caret"></span>
@@ -117,3 +120,4 @@
         </li>   
     </ul>
 </li>
+ --}}

@@ -65,8 +65,23 @@
 <!--<div class="header header-filter" style="background-image: url('https://images.unsplash.com/photo-1423655156442-ccc11daa4e99?crop=entropy&dpr=2&fit=crop&fm=jpg&h=750&ixjsv=2.1.0&ixlib=rb-0.3.5&q=50&w=1450');">
 -->
 <div class="header header-filter" style="background-image: url(' {{ asset("img/demofondo1.jpg") }}'); background-size: cover; background-position: top center;">
+    
 
     <div class="container">
+        @if(session('notification'))
+    <div class="alert alert-info">
+        <div class="container-fluid">
+          <div class="alert-icon">
+            <i class="material-icons">info_outline</i>
+          </div>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true"><i class="material-icons">clear</i></span>
+          </button>
+          <b>Info alert:</b> Lista de Precios Actualizada...
+        </div>
+    </div>
+    {{ session('notification') }}
+    @endif  
         <div class="row">
             <div class="col-md-6">
                 <h1 class="title">Bienvenido a {{ config('app.name') }}</h1>
@@ -83,7 +98,11 @@
 </div>
 
 <div class="main main-raised">
-    <div class="container">        
+    <div class="container">  
+
+
+
+
            <!-- <div class="section text-center section-landing">
             <div class="team">
                 <h2 class="title">Nuestras Promociones</h2>

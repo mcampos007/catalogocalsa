@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Articulo;
@@ -44,6 +44,22 @@ class PriceController extends Controller
             $price = $articulo->idiva == 1 ? $articulo->venta_neto * 1.21 : $articulo->venta_neto * 1.105;
             $pricewithdiscont = $price - $price*$articulo->topedesc/100;
             $is_deleted = $articulo->eliminado;
+            // Verificar si el nombre del artículo comienza con "ZZ"
+
+            if (!$articulo->eliminado){
+                $is_deleted = preg_match('/^ZZ{2,}/', $articulo->articulo);
+
+                IF ($articulo->id==7384){
+                    dd($articulo->id);
+                }
+                /*if (Str::startsWith($articulo->articulo, 'ZZ')) {
+                    dd($articulo->articulo);
+                   $is_deleted = true;
+                }  */  
+            }else{
+
+                $is_deleted = $articulo->eliminado;
+            }
 
             Product::updateOrInsert(
                 ['id' => $articulo->id], // Clave única en la tabla Articulos
@@ -68,7 +84,8 @@ class PriceController extends Controller
         }
         
         //dd($articulos);
-        return redirect("/");
+        $notification = "Lista de Precios actualizada";
+        return redirect("/")->with('notification', $notification);
         //return view('home')->with(compact('clients','remitos','sucursales','notification', 'clifacs'));
     }
 }

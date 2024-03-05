@@ -24,6 +24,7 @@ class PrecioController extends Controller
                 ->select('id','name','price','nro_art','topedesc','con_descuento')
                 ->where('name','LIKE','%'.$texto.'%')
                 ->where('sector_id','1')
+                ->where('is_deleted','=', false)
                 ->orderBy('name','asc')
                 ->paginate(5);
            $sucursales = Sucursal::all();

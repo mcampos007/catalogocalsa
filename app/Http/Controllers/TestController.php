@@ -16,6 +16,7 @@ class TestController extends Controller
     	$categories = Category::has('products')->orderBy('name')->get();
         $promotions = Promotion::paginate(6);
        //dd($categories);
+    
     	return view('welcome')->with(compact('categories','promotions'));
     }
 

@@ -14,7 +14,11 @@ class SearchController extends Controller
 
         $query = $request->input('query');
 
-        $products = Product::where('name','like',"%$query%")->paginate(5);
+        $products = Product::where('name','like',"%$query%")
+            ->where('sector_id','=','1')
+            ->where('is_deleted','=', false)
+            ->paginate(5);
+            
 
         if ($products->count() == 1){
             $id = $products->first()->id;

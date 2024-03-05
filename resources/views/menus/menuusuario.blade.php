@@ -7,12 +7,13 @@
             <a href="{{ url('/home')}}">Ver Mis Pedidos</a>
         </li>
         <li>
-            <a href="{{ url('/usuario/precios') }}">Lista de Precios Calsa</a>
+            <a href="{{ url('/usuario/precios') }}">Lista de Precios</a>
         </li>
+        {{--
         <li>
             <a href="{{ url('/usuario/preciosf') }}">Lista de Precios Fiambres</a>
         </li>
-        {{-- <li>
+         <li>
             <a href="{{ url('/admin/products')}}">Gestionar Productos</a>
         </li>
         <li>
@@ -29,7 +30,8 @@
         </li>
         <li>
             <a href="{{ url('/admin/sectors')}}">Gestionar Sectores</a>
-        </li> --}}
+        </li>
+         --}}
         {{-- Menu de Cajas --}}
         <li>
             <a href="{{ route('logout') }}"
